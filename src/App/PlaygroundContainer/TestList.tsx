@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add'
 import moo, { Lexer, Token } from 'moo'
 import './TestList.css'
 import { TokenList } from './TestList/TokenList';
+import { defaultTests } from '../../defaultValues'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,8 +27,6 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
 }));
-
-const defaultTests = ['first test', 'second //test']
 
 interface Test {
     input: string

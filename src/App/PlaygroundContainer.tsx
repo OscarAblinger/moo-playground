@@ -2,21 +2,10 @@ import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { Editor } from './PlaygroundContainer/Editor'
 import { TestList } from './PlaygroundContainer/TestList'
+import { defaultCode } from '../defaultValues'
 
-const defaultText =
-`return moo.compile({
-    WS:      /[ \\t]+/,
-    comment: /\\/\\/.*?$/,
-    number:  /0|[1-9][0-9]*/,
-    string:  /"(?:\\\\["\\\\]|[^\\n"\\\\])*"/,
-    lparen:  '(',
-    rparen:  ')',
-    keyword: ['while', 'if', 'else', 'moo', 'cows'],
-    NL:      { match: /\\n/, lineBreaks: true },
-})
-`
 export function PlaygroundContainer() {
-    const [code, setCode] = useState(defaultText)
+    const [code, setCode] = useState(defaultCode)
 
     return (
         <Grid container className="max-flexer">
