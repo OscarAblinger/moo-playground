@@ -1,0 +1,7 @@
+.add-test-wrapper {
+    display: flex;
+    padding-bottom: 5px;
+}
+.add-test-wrapper .add-input-field {
+    flex: 1
+}

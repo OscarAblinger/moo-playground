@@ -3,9 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/Add'
+import './TestList.css'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,6 +32,7 @@ interface Test {
 
 export function TestList({mooCode}: {mooCode: string}) {
     const [tests, setTests] = useState<Test[]>([{input: 'first test', tokens: []},{input: 'second test', tokens: ['hi']}])
+    const [newTestInput, setNewTestInput] = useState<string>('')
     const classes = useStyles()
 
     function calculateTokens(input: string) {
@@ -47,14 +51,37 @@ export function TestList({mooCode}: {mooCode: string}) {
         }
     }
 
+    function addNewTest() {
+        tests.push({input: newTestInput, tokens: calculateTokens(newTestInput)})
+        setTests(tests)
+        setNewTestInput('')
+    }
+
     return (
         <div>
+            <div className="add-test-wrapper">
+                <TextField
+                    label="Add new Test"
+                    className="add-input-field"
+                    value={newTestInput}
+                    onChange={event => setNewTestInput(event.target.value)}
+                    onKeyPress={(ev) => {
+                        if (ev.key === 'Enter') {
+                            addNewTest()
+                            ev.preventDefault();
+                        }
+                    }}
+                ></TextField>
+                <IconButton
+                    className="add-button"
+                    onClick={addNewTest}
+                ><AddIcon/></IconButton>
+            </div>
+
             {tests.map((test, idx) => (
                 <ExpansionPanel key={`panel-${idx}`}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
                     >
                         <TextField
                             className={classes.heading}
