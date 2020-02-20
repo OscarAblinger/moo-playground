@@ -6,7 +6,7 @@ import 'prismjs/components/prism-javascript'
 import 'prismjs/themes/prism.css'
 
 const defaultText =
-`const lexer = moo.compile({
+`return moo.compile({
     WS:      /[ \\t]+/,
     comment: /\\/\\/.*?$/,
     number:  /0|[1-9][0-9]*/,
