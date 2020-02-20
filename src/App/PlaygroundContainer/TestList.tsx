@@ -8,8 +8,9 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add'
-import moo from 'moo'
+import moo, { Lexer, Token } from 'moo'
 import './TestList.css'
+import { TokenList } from './TestList/TokenList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,12 +31,7 @@ const defaultTests = ['first test', 'second //test']
 
 interface Test {
     input: string
-    tokens: string[]
-}
-
-interface Lexer {
-    reset: (to: string) => void
-    next: () => string|undefined
+    tokens: string|Token[]
 }
 
 function createLexer(code: string): Lexer {
@@ -46,10 +42,10 @@ function createLexer(code: string): Lexer {
 export function TestList({mooCode}: {mooCode: string}) {
     const lexer = createLexer(mooCode)
 
-    function calculateTokens(input: string) {
+    function calculateTokens(input: string): string|Token[] {
         try {
             lexer.reset(input)
-            const result = []
+            const result: Token[] = []
 
             let current = lexer.next()
             // eslint-disable-next-line eqeqeq
@@ -70,7 +66,6 @@ export function TestList({mooCode}: {mooCode: string}) {
 
     function onTextFieldChange(changedTest: Test) {
         return (event: any /*React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>*/) => {
-            console.log({event})
             const newTests = tests.map(t =>
                 (t !== changedTest)
                     ? t
@@ -119,14 +114,11 @@ export function TestList({mooCode}: {mooCode: string}) {
                             onChange={onTextFieldChange(test)}
                         ></TextField>
                         <Typography className={classes.secondaryHeading}>
-                            {test.tokens instanceof Array ? test.tokens.map(t => t.toString()).join(',') : test.tokens}
+                            {test.tokens instanceof Array ? test.tokens.map(t => t.type).join(',') : test.tokens}
                         </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        {(test.tokens instanceof Array)
-                            ? test.tokens.map((token, tokenIdx) => <Typography key={`token-${idx}-${tokenIdx}`} variant="body1">{JSON.stringify(token)}</Typography>)
-                            : <Typography key={`token-${idx}-error`} variant="body1">{test.tokens}</Typography>
-                        }
+                        <TokenList tokens={test.tokens} />
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             ))}
