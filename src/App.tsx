@@ -5,7 +5,7 @@ import './App.css';
 
 export function App() {
     return (
-        <div>
+        <div className="full-height app-wrapper">
             <Topbar/>
             <PlaygroundContainer />
         </div>
