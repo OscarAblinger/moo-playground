@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -33,35 +33,57 @@ interface Test {
     tokens: string|Token[]
 }
 
-function createLexer(code: string): Lexer {
-    // eslint-disable-next-line no-new-func
-    return Function('moo', `${code}`)(moo)
+function createLexer(code: string): Lexer|undefined {
+    try {
+        // eslint-disable-next-line no-new-func
+        return Function('moo', `${code}`)(moo)
+    } catch (ex) {
+        // while writing the code is expected to be invalid (incomplete) often
+        // therefore -> fail silently
+        return undefined
+    }
 }
 
 export function TestList({mooCode}: {mooCode: string}) {
-    const lexer = createLexer(mooCode)
+    const lexer = useMemo(() => createLexer(mooCode), [mooCode])
 
-    function calculateTokens(input: string): string|Token[] {
-        try {
-            lexer.reset(input)
-            const result: Token[] = []
-
-            let current = lexer.next()
+    const calculateTokens = useCallback((input: string): string|Token[] => {
             // eslint-disable-next-line eqeqeq
-            while(current != undefined) {
-                result.push(current)
-                current = lexer.next()
+            if (lexer == undefined) {
+                return 'code is not valid'
             }
 
-            return result
-        } catch(ex) {
-            return ex.message
-        }
-    }
+            try {
+                lexer.reset(input)
+                const result: Token[] = []
 
+                let current = lexer.next()
+                // eslint-disable-next-line eqeqeq
+                while(current != undefined) {
+                    result.push(current)
+                    current = lexer.next()
+                }
+
+                return result
+            } catch(ex) {
+                return ex.message
+            }
+        },
+        [lexer])
+
+    const [lastLexer, setLastLexer] = useState(lexer)
     const [tests, setTests] = useState<Test[]>(defaultTests.map(str => Object({input: str, tokens: calculateTokens(str)})))
     const [newTestInput, setNewTestInput] = useState<string>('')
     const classes = useStyles()
+
+    useEffect(() => {
+        if (lastLexer !== lexer) {
+            setLastLexer(lexer)
+
+            tests.forEach(token => token.tokens = calculateTokens(token.input))
+            setTests(tests)
+        }
+    }, [lastLexer, lexer, calculateTokens, tests])
 
     function onTextFieldChange(changedTest: Test) {
         return (event: any /*React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>*/) => {
