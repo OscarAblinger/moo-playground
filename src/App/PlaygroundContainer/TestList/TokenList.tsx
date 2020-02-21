@@ -6,7 +6,7 @@ import { Token } from 'moo'
 
 export function TokenList({ tokens }: { tokens: string|Token[]}) {
     function interpretAsAListOfTokens(tokens: Token[]) {
-        return tokens.map(token => <ListItem dense>
+        return tokens.map((token, idx) => <ListItem dense key={idx}>
             <ListItemText primary={JSON.stringify(token)} />
             </ListItem>)
     }
