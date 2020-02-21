@@ -8,6 +8,7 @@ import 'prismjs/themes/prism.css'
 export function Editor({ code: [code, updateCode]}: {code: [string, (newCode: string) => void]} ) {
     return (
         <SimpleEditor
+            style={{fontFamily:'Roboto mono, monospace'}}
             value={code}
             onValueChange={updateCode}
             highlight={code => highlight(code, languages.js)}
