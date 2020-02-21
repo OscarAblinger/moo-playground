@@ -5,3 +5,6 @@
 .max-flexer {
     flex-grow: 1;
 }
+.playground-container {
+    margin-top: 1rem;
+}

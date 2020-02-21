@@ -8,7 +8,7 @@ export function PlaygroundContainer() {
     const [code, setCode] = useState(defaultCode)
 
     return (
-        <Grid container className="max-flexer">
+        <Grid container className="max-flexer playground-container">
             <Grid item xs={6}>
                 <Editor
                     code={[code, setCode]}
