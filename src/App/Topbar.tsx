@@ -16,7 +16,7 @@ export function Topbar() {
     const classes = useStyles()
 
     return (
-        <AppBar position="sticky">
+        <AppBar position="relative">
             <Toolbar>
                 <Typography variant="h6" className={classes.title}>
                     Moo Playground
