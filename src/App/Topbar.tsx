@@ -22,11 +22,11 @@ export function Topbar() {
                     Moo Playground
                 </Typography>
                 <Button
-                    aria-label="github link of the moo lexer"
+                    aria-label="github link of moo"
                     color="inherit"
                     endIcon={<GitHubIcon/>}
                     href="https://github.com/no-context/moo"
-                >Moo lexer Github</Button>
+                >Moo Github</Button>
                 <Button
                     aria-label="github link of this playground"
                     color="inherit"
