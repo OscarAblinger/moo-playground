@@ -1,8 +1,10 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
@@ -117,6 +119,10 @@ export function TestList({mooCode}: {mooCode: string}) {
         setNewTestInput('')
     }
 
+    function deleteTest(test: Test) {
+        setTests(tests.filter(t => t !== test))
+    }
+
     return (
         <div>
             <div className="add-test-wrapper">
@@ -160,6 +166,11 @@ export function TestList({mooCode}: {mooCode: string}) {
                     <ExpansionPanelDetails>
                         <TokenList tokens={test.tokens} />
                     </ExpansionPanelDetails>
+                    <ExpansionPanelActions>
+                        <Button size="small" color="secondary" onClick={() => deleteTest(test)}>
+                            Delete Test
+                        </Button>
+                    </ExpansionPanelActions>
                 </ExpansionPanel>
             )})}
         </div>
