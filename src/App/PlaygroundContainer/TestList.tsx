@@ -138,7 +138,9 @@ export function TestList({mooCode}: {mooCode: string}) {
                 ><AddIcon/></IconButton>
             </div>
 
-            {tests.map((test, idx) => (
+            {tests.map((test, idx) => {
+                const testShortDescription = test.tokens instanceof Array ? test.tokens.map(t => t.type).join(',') : test.tokens
+                return (
                 <ExpansionPanel key={`panel-${idx}`}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -150,8 +152,8 @@ export function TestList({mooCode}: {mooCode: string}) {
                                 error={!(test.tokens instanceof Array)}
                                 onChange={onTextFieldChange(test)}
                             ></TextField>
-                            <Typography className={classes.secondaryHeading}>
-                                {test.tokens instanceof Array ? test.tokens.map(t => t.type).join(',') : test.tokens}
+                            <Typography className={classes.secondaryHeading} title={testShortDescription}>
+                                {testShortDescription}
                             </Typography>
                         </div>
                     </ExpansionPanelSummary>
@@ -159,7 +161,7 @@ export function TestList({mooCode}: {mooCode: string}) {
                         <TokenList tokens={test.tokens} />
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
-            ))}
+            )})}
         </div>
     )
 }
