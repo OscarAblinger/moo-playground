@@ -14,18 +14,33 @@ import { TokenList } from './TestList/TokenList';
 import { defaultTests } from '../../defaultValues'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
+    root: {
+        width: '100%',
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        display: 'inline-block',
+        width: '30%',
+    },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: theme.palette.text.secondary,
+        display: 'inline-block',
+        width: '60%',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+    },
+    textWrapper: {
+        position: 'absolute',
+        left: 0,
+        right: theme.typography.pxToRem(30),
+        top: 0,
+        bottom: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 }));
 
 interface Test {
@@ -128,15 +143,17 @@ export function TestList({mooCode}: {mooCode: string}) {
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
                     >
-                        <TextField
-                            className={classes.heading}
-                            value={test.input}
-                            error={!(test.tokens instanceof Array)}
-                            onChange={onTextFieldChange(test)}
-                        ></TextField>
-                        <Typography className={classes.secondaryHeading}>
-                            {test.tokens instanceof Array ? test.tokens.map(t => t.type).join(',') : test.tokens}
-                        </Typography>
+                        <div className={classes.textWrapper}>
+                            <TextField
+                                className={classes.heading}
+                                value={test.input}
+                                error={!(test.tokens instanceof Array)}
+                                onChange={onTextFieldChange(test)}
+                            ></TextField>
+                            <Typography className={classes.secondaryHeading}>
+                                {test.tokens instanceof Array ? test.tokens.map(t => t.type).join(',') : test.tokens}
+                            </Typography>
+                        </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <TokenList tokens={test.tokens} />
