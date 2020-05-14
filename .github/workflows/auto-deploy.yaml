@@ -1,0 +1,22 @@
+name: Automatic Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node
+      uses: nodenv/actions-setup-nodenv@v2.0.4
+
+    - name: Install dependencies
+      run: npm i
+
+    - name: Deploy
+      run: npm run deploy
