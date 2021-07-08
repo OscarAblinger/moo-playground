@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/moo-playground/static/css/main.299b5ec0.chunk.css",
+    "main.js": "/moo-playground/static/js/main.1d624396.chunk.js",
+    "main.js.map": "/moo-playground/static/js/main.1d624396.chunk.js.map",
+    "runtime-main.js": "/moo-playground/static/js/runtime-main.86657487.js",
+    "runtime-main.js.map": "/moo-playground/static/js/runtime-main.86657487.js.map",
+    "static/css/2.0d8cb1d1.chunk.css": "/moo-playground/static/css/2.0d8cb1d1.chunk.css",
+    "static/js/2.ddf15273.chunk.js": "/moo-playground/static/js/2.ddf15273.chunk.js",
+    "static/js/2.ddf15273.chunk.js.map": "/moo-playground/static/js/2.ddf15273.chunk.js.map",
+    "index.html": "/moo-playground/index.html",
+    "static/css/2.0d8cb1d1.chunk.css.map": "/moo-playground/static/css/2.0d8cb1d1.chunk.css.map",
+    "static/css/main.299b5ec0.chunk.css.map": "/moo-playground/static/css/main.299b5ec0.chunk.css.map",
+    "static/js/2.ddf15273.chunk.js.LICENSE.txt": "/moo-playground/static/js/2.ddf15273.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.86657487.js",
+    "static/css/2.0d8cb1d1.chunk.css",
+    "static/js/2.ddf15273.chunk.js",
+    "static/css/main.299b5ec0.chunk.css",
+    "static/js/main.1d624396.chunk.js"
+  ]
+}
